@@ -11,6 +11,23 @@ class Timer extends Component {
 			isStarted: false
 		};
 	}
+
+	timer = () => {
+		timeLeft = timerDuration - (Date.now() - startTime / 1000);
+		minutes = (timeLeft / 60) | 0;
+		seconds = timeLeft % 60 | 0;
+
+		minutes = minutes < 10 ? '0' + minutes : minutes;
+		seconds = seconds < 10 ? '0' + seconds : seconds;
+
+		if (timeLeft > -1) {
+			this.setState({
+				timeRemaining: minutes + ':' + seconds
+			});
+		} else {
+			this.stopCountdown();
+		}
+	};
 	render() {
 		return <div />;
 	}
