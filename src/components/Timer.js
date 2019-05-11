@@ -56,7 +56,14 @@ class Timer extends Component {
 	};
 
 	render() {
-		return <div />;
+		return (
+			<View style={styles.container}>
+				<Button style={styles.button} onPress={this.handleClick}>
+					{this.state.isStarted ? 'stop timer' : 'start timer'}
+				</Button>
+				<Text style={styles.timer}>{this.state.timeRemaining}</Text>
+			</View>
+		);
 	}
 }
 
