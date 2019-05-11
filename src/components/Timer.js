@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 const timerDuration = 15000; // Total time left in ms
+const initialTime = '25:00'; // initial timer display
 let timerInterval, startTime, timeLeft, minutes, seconds;
 
-class Timer extends Component {
+export default class Timer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			timeReamining: '25:00',
+			timeRemaining: initialTime,
 			isStarted: false
 		};
 	}
@@ -41,14 +42,14 @@ class Timer extends Component {
 	startCountdown = () => {
 		startTime = Date.now();
 		this.timer();
-		timerInterval = this.setInterval(this.timer, 1000);
+		timerInterval = setInterval(this.timer, 1000);
 		this.setState({
 			isStarted: true
 		});
 	};
 
 	stopCountdown = () => {
-		this.clearInterval(timerInterval);
+		clearInterval(timerInterval);
 		this.setState({
 			timeRemaining: initialTime,
 			isStarted: false
@@ -58,13 +59,34 @@ class Timer extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Button style={styles.button} onPress={this.handleClick}>
-					{this.state.isStarted ? 'stop timer' : 'start timer'}
-				</Button>
+				<Button
+					style={styles.button}
+					onPress={this.handleClick}
+					title={this.state.isStarted ? 'stop timer' : 'start timer'}
+				/>
 				<Text style={styles.timer}>{this.state.timeRemaining}</Text>
 			</View>
 		);
 	}
 }
 
-export default Timer;
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	button: {
+		backgroundColor: 'white',
+		color: 'tomato',
+		fontSize: 40,
+		padding: 10,
+		textAlign: 'center'
+	},
+	timer: {
+		color: 'white',
+		fontSize: 75,
+		textAlign: 'center',
+		margin: 10
+	}
+});
