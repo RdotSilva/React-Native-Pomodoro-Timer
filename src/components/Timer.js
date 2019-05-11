@@ -10,7 +10,8 @@ export default class Timer extends React.Component {
 		super(props);
 		this.state = {
 			timeRemaining: initialTime,
-			isStarted: false
+			isStarted: false,
+			isPaused: false
 		};
 	}
 
@@ -56,9 +57,24 @@ export default class Timer extends React.Component {
 		});
 	};
 
+	pauseTimer = () => {
+		clearInterval(timerInterval);
+		console.log(this.state.timeRemaining);
+		this.setState({
+			timeRemaining: this.state.timeRemaining,
+			isStarted: false,
+			isPaused: true
+		});
+	};
+
 	render() {
 		return (
 			<View style={styles.container}>
+				<Button
+					style={styles.button}
+					onPress={this.pauseTimer}
+					title="Pause timer"
+				/>
 				<Button
 					style={styles.button}
 					onPress={this.handleClick}
