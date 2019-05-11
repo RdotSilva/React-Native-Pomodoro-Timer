@@ -39,6 +39,14 @@ class Timer extends Component {
 		});
 	}
 
+	stopCountdown() {
+		this.clearInterval(timerInterval);
+		this.setState({
+			timeRemaining: initialTime,
+			isStarted: false
+		});
+	}
+
 	render() {
 		return <div />;
 	}
