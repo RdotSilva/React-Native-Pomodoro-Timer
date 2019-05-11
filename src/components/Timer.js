@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 const timerDuration = 15000; // Total time left in ms
+let timerInterval, startTime, timeLeft, minutes, seconds;
 
 class Timer extends Component {
 	constructor(props) {
@@ -28,6 +29,16 @@ class Timer extends Component {
 			this.stopCountdown();
 		}
 	};
+
+	startCountdown() {
+		startTime = Date.now();
+		this.timer();
+		timerInterval = this.setInterval(this.timer, 1000);
+		this.setState({
+			isStarted: true
+		});
+	}
+
 	render() {
 		return <div />;
 	}
