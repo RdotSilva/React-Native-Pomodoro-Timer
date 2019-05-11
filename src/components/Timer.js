@@ -13,6 +13,14 @@ class Timer extends Component {
 		};
 	}
 
+	handleClick = event => {
+		if (this.state.isStarted) {
+			this.stopCountdown();
+		} else {
+			this.startCountdown();
+		}
+	};
+
 	timer = () => {
 		timeLeft = timerDuration - (Date.now() - startTime / 1000);
 		minutes = (timeLeft / 60) | 0;
@@ -30,22 +38,22 @@ class Timer extends Component {
 		}
 	};
 
-	startCountdown() {
+	startCountdown = () => {
 		startTime = Date.now();
 		this.timer();
 		timerInterval = this.setInterval(this.timer, 1000);
 		this.setState({
 			isStarted: true
 		});
-	}
+	};
 
-	stopCountdown() {
+	stopCountdown = () => {
 		this.clearInterval(timerInterval);
 		this.setState({
 			timeRemaining: initialTime,
 			isStarted: false
 		});
-	}
+	};
 
 	render() {
 		return <div />;
