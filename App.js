@@ -6,7 +6,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Pomodoro Timer!</Text>
+				<Text style={styles.title}>Pomodoro Timer!</Text>
 				<Timer />
 			</View>
 		);
@@ -16,8 +16,14 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: 'pink',
 		alignItems: 'center',
 		justifyContent: 'center'
+	},
+	title: {
+		color: 'white',
+		fontSize: 30,
+		textAlign: 'center',
+		margin: 80
 	}
 });

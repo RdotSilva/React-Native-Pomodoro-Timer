@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-const timerDuration = 15000; // Total time left in ms
+const timerDuration = 1500; // Total time left in ms
 const initialTime = '25:00'; // initial timer display
 let timerInterval, startTime, timeLeft, minutes, seconds;
 
@@ -23,7 +23,7 @@ export default class Timer extends React.Component {
 	};
 
 	timer = () => {
-		timeLeft = timerDuration - (Date.now() - startTime / 1000);
+		timeLeft = timerDuration - (((Date.now() - startTime) / 1000) | 0);
 		minutes = (timeLeft / 60) | 0;
 		seconds = timeLeft % 60 | 0;
 
@@ -72,14 +72,14 @@ export default class Timer extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
+		backgroundColor: 'pink',
+		color: 'white',
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
 	button: {
-		backgroundColor: 'white',
-		color: 'tomato',
-		fontSize: 40,
+		fontSize: 20,
 		padding: 10,
 		textAlign: 'center'
 	},
