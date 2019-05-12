@@ -49,6 +49,16 @@ class App extends React.Component {
 		});
 	}
 
+	playButton() {
+		if (this.state.paused === true || this.state.playing === false) { 
+		  this.setState({
+			timer: setInterval(this.countdown, 1000),
+			paused: false,
+			playing: true,
+		  });
+		}
+	}
+
 	render() {
 		return (
 			<div>
