@@ -107,6 +107,20 @@ class App extends React.Component {
 		}
 	}
 
+	toggleStatus() {
+		if (this.state.working) {
+		  this.setState({
+			working: false,
+			currentTime: this.state.breakTime,
+		  })
+		} else {
+		  this.setState({
+			working: true,
+			currentTime: this.state.workTime,
+		  })
+		}
+	}
+
 	render() {
 		return (
 			<div>
