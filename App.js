@@ -59,6 +59,20 @@ class App extends React.Component {
 		}
 	}
 
+	pauseButton () {
+		if (this.state.paused === false && this.state.playing === true) {
+		  clearInterval(this.state.timer);
+		  this.setState({
+			paused: true,
+			timer: null,
+			playing: false
+		  });
+		  console.log(this.state.paused);
+		} else if (this.state.paused === true && this.state.playing === false) {
+		  this.playButton();
+		}       
+	}
+
 	render() {
 		return (
 			<div>
