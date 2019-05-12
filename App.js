@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Picker } from 'react-native';
 import Timer from './src/components/Timer';
 import Buttons from './src/components/Buttons';
 import Label from './src/components/Label';
@@ -129,7 +129,41 @@ class App extends React.Component {
 	}
 
 	render() {
-		return <div />;
+		return (
+			<View style={style.container}>
+				<Timer currentTime={this.state.currentTime} />
+				<Label
+					working={this.state.working}
+					paused={this.state.paused}
+					playing={this.state.playing}
+				/>
+				<View style={{ flexDirection: 'row' }}>
+					<Buttons title="Play" onPress={this.playButton} />
+					<Buttons title="Pause" onPress={this.pauseButton} />
+					<Buttons title="Reset" onPress={this.resetButton} />
+				</View>
+				<View style={style.menuContainer}>
+					<Text>Select work time (min): </Text>
+					<Menu
+						selected={Number(
+							this.state.workTime.slice(0, 2)
+						).toString()}
+						onValueChange={this.setWorkTimer}
+					/>
+				</View>
+				<View style={style.menuContainer}>
+					<Text>Select break time (min): </Text>
+					<Menu
+						selected={Number(
+							this.state.breakTime.slice(0, 2)
+						).toString()}
+						onValueChange={this.setBreakTimer}
+					/>
+				</View>
+				<Info />
+				<Picture />
+			</View>
+		);
 	}
 }
 

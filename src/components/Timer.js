@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-const style = Stylehseet.create({
+const style = StyleSheet.create({
 	timer: {
 		fontSize: 50,
 		borderRadius: 5,
