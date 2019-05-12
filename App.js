@@ -89,7 +89,6 @@ class App extends React.Component {
 
 	resetButton = () => {
 		this.pauseButton();
-		clearInterval(this.state.timer);
 		this.setState({
 			currentTime: this.state.workTime,
 			playing: false,
