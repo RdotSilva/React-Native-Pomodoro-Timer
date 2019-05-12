@@ -1,6 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Timer from './src/components/Timer';
+import Buttons from './src/components/Buttons';
+import Label from './src/components/Label';
+
+fomartTime = time => {
+	if (parseInt(time) < 10) {
+		return '0' + time.toString();
+	} else {
+		return time.toString();
+	}
+};
 
 export default class App extends React.Component {
 	render() {
@@ -12,18 +22,3 @@ export default class App extends React.Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: 'pink',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	title: {
-		color: 'white',
-		fontSize: 30,
-		textAlign: 'center',
-		margin: 80
-	}
-});
