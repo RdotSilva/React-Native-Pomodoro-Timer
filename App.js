@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Picker } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Timer from './src/components/Timer';
 import Buttons from './src/components/Buttons';
 import Label from './src/components/Label';
+import Menu from './src/components/Menu';
 
 const style = StyleSheet.create({
 	container: {
@@ -17,17 +18,17 @@ const style = StyleSheet.create({
 	}
 });
 
-fomartTime = time => {
+function formatTime(time) {
 	if (parseInt(time) < 10) {
 		return '0' + time.toString();
 	} else {
 		return time.toString();
 	}
-};
+}
 
-getTime = x => {
-	return formatTime(x) + ':00';
-};
+function getTime(val) {
+	return formatTime(val) + ':00';
+}
 
 class App extends React.Component {
 	constructor(props) {
@@ -50,8 +51,8 @@ class App extends React.Component {
 		this.toggleStatus = this.toggleStatus.bind(this);
 	}
 
-	setWorkTimer(x) {
-		let newTime = getTime(x);
+	setWorkTimer(val) {
+		let newTime = getTime(val);
 		this.setState({
 			workTime: newTime
 		});
@@ -62,8 +63,8 @@ class App extends React.Component {
 		}
 	}
 
-	setBreakTimer(x) {
-		let newTime = getTime(x);
+	setBreakTimer(val) {
+		let newTime = getTime(val);
 		this.setState({
 			breakTime: newTime
 		});
@@ -173,8 +174,6 @@ class App extends React.Component {
 						onValueChange={this.setBreakTimer}
 					/>
 				</View>
-				<Info />
-				<Picture />
 			</View>
 		);
 	}
