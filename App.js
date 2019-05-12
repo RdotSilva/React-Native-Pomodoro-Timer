@@ -29,6 +29,18 @@ class App extends React.Component {
 			playing, false
 		}
 	}
+
+	setWorkTimer(x) {
+		let newTime = getTime(x);
+		this.setState({
+		  workTime: newTime,
+		});
+		if (!this.state.timer) {
+		  this.setState({
+			currentTime: newTime,
+		  });
+		}      
+	  }
 	render() {
 		return (
 			
