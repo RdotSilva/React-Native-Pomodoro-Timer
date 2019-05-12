@@ -42,16 +42,9 @@ class App extends React.Component {
 				paused: false,
 				playing: false
 			});
-		this.setWorkTimer = this.setWorkTimer.bind(this);
-		this.setBreakTimer = this.setBreakTimer.bind(this);
-		this.playButton = this.playButton.bind(this);
-		this.pauseButton = this.pauseButton.bind(this);
-		this.resetButton = this.resetButton.bind(this);
-		this.countdown = this.countdown.bind(this);
-		this.toggleStatus = this.toggleStatus.bind(this);
 	}
 
-	setWorkTimer(val) {
+	setWorkTimer = val => {
 		let newTime = getTime(val);
 		this.setState({
 			workTime: newTime
@@ -61,16 +54,16 @@ class App extends React.Component {
 				currentTime: newTime
 			});
 		}
-	}
+	};
 
-	setBreakTimer(val) {
+	setBreakTimer = val => {
 		let newTime = getTime(val);
 		this.setState({
 			breakTime: newTime
 		});
-	}
+	};
 
-	playButton() {
+	playButton = () => {
 		if (this.state.paused === true || this.state.playing === false) {
 			this.setState({
 				timer: setInterval(this.countdown, 1000),
@@ -78,9 +71,9 @@ class App extends React.Component {
 				playing: true
 			});
 		}
-	}
+	};
 
-	pauseButton() {
+	pauseButton = () => {
 		if (this.state.paused === false && this.state.playing === true) {
 			clearInterval(this.state.timer);
 			this.setState({
@@ -92,10 +85,11 @@ class App extends React.Component {
 		} else if (this.state.paused === true && this.state.playing === false) {
 			this.playButton();
 		}
-	}
+	};
 
-	resetButton() {
+	resetButton = () => {
 		this.pauseButton();
+		clearInterval(this.state.timer);
 		this.setState({
 			currentTime: this.state.workTime,
 			playing: false,
@@ -103,9 +97,9 @@ class App extends React.Component {
 			working: true,
 			timer: null
 		});
-	}
+	};
 
-	countdown() {
+	countdown = () => {
 		if (this.state.currentTime === '00:00' && this.state.playing === true) {
 			console.log('finished');
 			vibrate();
@@ -127,9 +121,9 @@ class App extends React.Component {
 				});
 			}
 		}
-	}
+	};
 
-	toggleStatus() {
+	toggleStatus = () => {
 		if (this.state.working) {
 			this.setState({
 				working: false,
@@ -141,7 +135,7 @@ class App extends React.Component {
 				currentTime: this.state.workTime
 			});
 		}
-	}
+	};
 
 	render() {
 		return (
