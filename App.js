@@ -81,7 +81,31 @@ class App extends React.Component {
 		  paused: false,
 		  working: true,
 		})
-	  }
+	}
+
+	countdown() {
+		if (this.state.currentTime === "00:00" && this.state.playing === true) {
+		  console.log('finished');
+		  vibrate();
+		  this.toggleStatus();
+		} else {
+		  let sec = this.state.currentTime.slice(3);
+		  let min = this.state.currentTime.slice(0, 2);
+		  if (sec === "00") {
+			let newMin = formatTime(parseInt(min) - 1);
+			let newTime = newMin + ":59";
+			this.setState({
+			  currentTime: newTime,
+			});
+		  } else {
+			let newSec = formatTime((parseInt(sec) - 1));
+			let newTime = min + ":" + newSec;
+			this.setState({
+			  currentTime: newTime,
+			})
+		  }
+		}
+	}
 
 	render() {
 		return (
