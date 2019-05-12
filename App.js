@@ -40,10 +40,20 @@ class App extends React.Component {
 			currentTime: newTime,
 		  });
 		}      
-	  }
+	}
+
+	setBreakTimer(x) {
+		let newTime = getTime(x);
+		this.setState({
+		  breakTime: newTime,
+		});
+	}
+
 	render() {
 		return (
-			
+			<div>
+
+			</div>
 		);
 	}
 }
