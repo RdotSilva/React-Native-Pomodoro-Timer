@@ -1,5 +1,20 @@
 import React from 'react';
-import { Text, StyleProp } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
+
+const style = Stylehseet.create({
+	timer: {
+		fontSize: 50,
+		borderRadius: 5,
+		borderBottomWidth: 2,
+		borderTopWidth: 2,
+		borderLeftWidth: 2,
+		borderRightWidth: 2,
+		paddingLeft: 6,
+		paddingRight: 3,
+		position: 'absolute',
+		top: 100
+	}
+});
 
 export default class Timer extends React.Component {
 	render() {
