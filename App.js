@@ -4,6 +4,7 @@ import Timer from './src/components/Timer';
 import Buttons from './src/components/Buttons';
 import Label from './src/components/Label';
 import Menu from './src/components/Menu';
+import vibrate from './src/utils/';
 
 const style = StyleSheet.create({
 	container: {

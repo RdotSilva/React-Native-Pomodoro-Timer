@@ -1,1 +1,0 @@
-export vibrate from './vibrate';
