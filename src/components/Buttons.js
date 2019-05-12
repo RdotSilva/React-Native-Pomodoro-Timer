@@ -12,7 +12,7 @@ export default class Buttons extends Component {
 	render() {
 		return (
 			<View style={style.button}>
-				<Button title={this.props.title} onpress={this.props.onPress} />
+				<Button title={this.props.title} onPress={this.props.onPress} />
 			</View>
 		);
 	}

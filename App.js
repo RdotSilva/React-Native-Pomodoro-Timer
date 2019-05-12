@@ -18,30 +18,30 @@ const style = StyleSheet.create({
 	}
 });
 
-function formatTime(time) {
+formatTime = time => {
 	if (parseInt(time) < 10) {
 		return '0' + time.toString();
 	} else {
 		return time.toString();
 	}
-}
+};
 
-function getTime(val) {
+getTime = val => {
 	return formatTime(val) + ':00';
-}
+};
 
 class App extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {
-			currentTime: '25:00',
-			workTime: '25:00',
-			breakTime: '05:00',
-			working: true,
-			timer: null,
-			paused: false,
-			playing: false
-		};
+		super(props),
+			(this.state = {
+				currentTime: '25:00',
+				workTime: '25:00',
+				breakTime: '05:00',
+				working: true,
+				timer: null,
+				paused: false,
+				playing: false
+			});
 		this.setWorkTimer = this.setWorkTimer.bind(this);
 		this.setBreakTimer = this.setBreakTimer.bind(this);
 		this.playButton = this.playButton.bind(this);
@@ -100,7 +100,8 @@ class App extends React.Component {
 			currentTime: this.state.workTime,
 			playing: false,
 			paused: false,
-			working: true
+			working: true,
+			timer: null
 		});
 	}
 
