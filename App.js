@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Vibration } from 'react-native';
 import Timer from './src/components/Timer';
 import Buttons from './src/components/Buttons';
 import Label from './src/components/Label';
 import Menu from './src/components/Menu';
-import vibrate from './src/utils/';
 
 const style = StyleSheet.create({
 	container: {
@@ -18,6 +17,8 @@ const style = StyleSheet.create({
 		alignItems: 'center'
 	}
 });
+
+vibrate = () => Vibration.vibrate([500, 500, 500]);
 
 formatTime = time => {
 	if (parseInt(time) < 10) {

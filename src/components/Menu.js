@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Picker, StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 
 const style = StyleSheet.create({
 	minuteInput: {
-		height: 40,
+		height: 25,
 		borderColor: 'gray',
+		textAlign: 'center',
 		borderWidth: 1
 	}
 });
