@@ -12,7 +12,11 @@ fomartTime = time => {
 	}
 };
 
-export default class App extends React.Component {
+getTime = x => {
+	return formatTime(x) + ':00';
+};
+
+class App extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
@@ -22,3 +26,5 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+export default App;
