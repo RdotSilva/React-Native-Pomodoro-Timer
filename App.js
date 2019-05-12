@@ -4,6 +4,19 @@ import Timer from './src/components/Timer';
 import Buttons from './src/components/Buttons';
 import Label from './src/components/Label';
 
+const style = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	menuContainer: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	}
+});
+
 fomartTime = time => {
 	if (parseInt(time) < 10) {
 		return '0' + time.toString();
