@@ -73,6 +73,16 @@ class App extends React.Component {
 		}       
 	}
 
+	resetButton () {
+		this.pauseButton();
+		this.setState({
+		  currentTime: this.state.workTime,
+		  playing: false,
+		  paused: false,
+		  working: true,
+		})
+	  }
+
 	render() {
 		return (
 			<div>
