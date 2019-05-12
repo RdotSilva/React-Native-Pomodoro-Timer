@@ -17,12 +17,21 @@ getTime = x => {
 };
 
 class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentTime: "25:00",
+			workTime: "25:00",
+			breakTime: "05:00",
+			working: true,
+			timer: null,
+			paused: false,
+			playing, false
+		}
+	}
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text style={styles.title}>Pomodoro Timer!</Text>
-				<Timer />
-			</View>
+			
 		);
 	}
 }
