@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
+const style = StyleSheet.Create({
+	label: {
+		fontSize: 40,
+		marginTop: 20,
+		marginBottom: 25,
+		alignSelf: 'center'
+	},
+	smallLabel: {
+		fontSize: 25,
+		marginTop: 20,
+		marginBottom: 25,
+		alignSelf: 'center'
+	},
+	labelContainer: {
+		height: 60,
+		justifyContent: 'flex-start'
+	}
+});
+
 export default class Label extends Component {
 	render() {
 		return (
