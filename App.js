@@ -98,7 +98,7 @@ export default class App extends React.Component {
 					timeRemaining={this.state.timeRemaining}
 					onToggleTimer={this.toggleTimer}
 				/>
-				<ProgressBar />
+				<ProgressBar timeRemaining={this.state.timeRemaining} timeTotal={} />
 				<View style={[styles.buttonGroup, styles.center]}>
 					<TimerToggleButton
 						onToggle={this.toggleTimer}
