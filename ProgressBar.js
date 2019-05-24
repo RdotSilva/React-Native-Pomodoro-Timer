@@ -1,4 +1,11 @@
 import React from 'react';
-import { Stylesheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-export default props => <View />;
+const styles = StyleSheet.create({
+	progress: {
+		backgroundColor: 'blue',
+		height: 100,
+		width: 100
+	}
+});
+export default props => <View style={styles.progress} />;

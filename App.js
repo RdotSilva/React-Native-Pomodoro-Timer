@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 
 import { Countdown, TimeInput, TimerToggleButton } from './src/components';
 import { Timer, vibrate } from './utils';
+import ProgressBar from './ProgressBar';
 
 const DEFAULT_WORK_MINS = 0.1;
 const DEFAULT_BREAK_MINS = 0.1;
@@ -97,6 +98,7 @@ export default class App extends React.Component {
 					timeRemaining={this.state.timeRemaining}
 					onToggleTimer={this.toggleTimer}
 				/>
+				<ProgressBar />
 				<View style={[styles.buttonGroup, styles.center]}>
 					<TimerToggleButton
 						onToggle={this.toggleTimer}
