@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
 	progress: {
 		backgroundColor: 'blue',
 		height: 10,
-		width: 1
+		width: 2
 	}
 });
 
@@ -30,7 +30,19 @@ class ProgressBar extends React.Component {
 		const { width } = Dimensions.get('window');
 		return (
 			<Animated.View
-				style={[styles.progress, { transform: [{ scaleX: percent }] }]}
+				style={[
+					styles.progress,
+					{
+						transform: [
+							{
+								scaleX: percent.interpolate({
+									inputRange: [0, 100],
+									outputRange: [0, width]
+								})
+							}
+						]
+					}
+				]}
 			/>
 		);
 	}
