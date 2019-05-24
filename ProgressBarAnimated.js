@@ -15,6 +15,16 @@ class ProgressBar extends React.Component {
 		percent: new Animated.Value(0)
 	};
 
+	componentDidMount() {
+		this.startAnimation();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.timeRemaining > this.props.timeRemaining) {
+			this.setState({ percent: new Animated.Value(0) });
+		}
+	}
+
 	startAnimation() {
 		this.animation = Animated.timing(this.state.percent, {
 			toValue: 100,
@@ -23,12 +33,6 @@ class ProgressBar extends React.Component {
 			useNativeDriver: true
 		});
 		this.animation.start();
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.timeRemaining > this.props.timeRemaining) {
-			this.setState({ percent: new Animated.Value(0) });
-		}
 	}
 
 	render() {
