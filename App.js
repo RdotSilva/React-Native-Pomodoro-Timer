@@ -87,6 +87,13 @@ export default class App extends React.Component {
 		);
 	};
 
+	getTimeTotal = () => {
+		const { workTime, breakTime } = this.state;
+		// const workTime = this.state.workTime;
+		// const breakTime = this.state.breakTime;
+		return this.state.activeTimer === 'work' ? workTIme : breakTime;
+	};
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -98,7 +105,10 @@ export default class App extends React.Component {
 					timeRemaining={this.state.timeRemaining}
 					onToggleTimer={this.toggleTimer}
 				/>
-				<ProgressBar timeRemaining={this.state.timeRemaining} timeTotal={} />
+				<ProgressBar
+					timeRemaining={this.state.timeRemaining}
+					timeTotal={this.getTimeTotal}
+				/>
 				<View style={[styles.buttonGroup, styles.center]}>
 					<TimerToggleButton
 						onToggle={this.toggleTimer}
