@@ -21,7 +21,10 @@ class ProgressBar extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.timeRemaining > this.props.timeRemaining) {
-			this.setState({ percent: new Animated.Value(0) });
+			this.setState(
+				{ percent: new Animated.Value(0) },
+				this.startAnimation
+			);
 		}
 	}
 
