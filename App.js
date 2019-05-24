@@ -91,7 +91,9 @@ export default class App extends React.Component {
 		const { workTime, breakTime } = this.state;
 		// const workTime = this.state.workTime;
 		// const breakTime = this.state.breakTime;
-		return this.state.activeTimer === 'work' ? workTIme : breakTime;
+		return (
+			(this.state.activeTimer === 'work' ? workTIme : breakTime) * 1000
+		);
 	};
 
 	render() {
@@ -108,6 +110,7 @@ export default class App extends React.Component {
 				<ProgressBar
 					timeRemaining={this.state.timeRemaining}
 					timeTotal={this.getTimeTotal}
+					isRunning={this.state.isRunning}
 				/>
 				<View style={[styles.buttonGroup, styles.center]}>
 					<TimerToggleButton
