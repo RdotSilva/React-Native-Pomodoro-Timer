@@ -92,7 +92,7 @@ export default class App extends React.Component {
 		// const workTime = this.state.workTime;
 		// const breakTime = this.state.breakTime;
 		return (
-			(this.state.activeTimer === 'work' ? workTIme : breakTime) * 1000
+			(this.state.activeTimer === 'work' ? workTime : breakTime) * 1000
 		);
 	};
 
