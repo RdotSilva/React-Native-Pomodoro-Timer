@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 const styles = StyleSheet.create({
 	progress: {
 		backgroundColor: 'blue',
-		height: 10
+		height: 10,
+		width: 1
 	}
 });
 
@@ -18,15 +19,20 @@ class ProgressBar extends React.Component {
 		this.animation = Animated.timing(this.state.percent, {
 			toValue: 100,
 			duration: this.props.timeRemaining,
-			easing: Easing.linear
+			easing: Easing.linear,
+			useNativeDriver: true
 		});
+		this.animation.start();
 	}
 
 	render() {
-		const { props } = this;
+		const { percent } = this.state;
 		const { width } = Dimensions.get('window');
-		const percent = 1 - props.timeRemaining / props.timeTotal;
-		return <View style={[styles.progress, { width: percent * width }]} />;
+		return (
+			<Animated.View
+				style={[styles.progress, { transform: [{ scaleX: percent }] }]}
+			/>
+		);
 	}
 }
 
