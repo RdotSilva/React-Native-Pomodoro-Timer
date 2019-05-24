@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
@@ -10,7 +10,10 @@ const styles = StyleSheet.create({
 	}
 });
 
-const ProgressBar = props => <View style={styles.progress} />;
+const ProgressBar = props => {
+	const { width } = Dimensions.get('window');
+	return <View style={[styles.progress, { width: width }]} />;
+};
 
 ProgressBar.propTypes = {
 	timeRemaining: PropTypes.number,
