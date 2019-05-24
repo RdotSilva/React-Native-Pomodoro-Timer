@@ -109,7 +109,7 @@ export default class App extends React.Component {
 				/>
 				<ProgressBar
 					timeRemaining={this.state.timeRemaining}
-					timeTotal={this.getTimeTotal}
+					timeTotal={this.getTimeTotal()}
 					isRunning={this.state.isRunning}
 				/>
 				<View style={[styles.buttonGroup, styles.center]}>
