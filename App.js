@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-import { Countdown, TimeInput, TimerToggleButton } from './components';
+import { Countdown, TimeInput, TimerToggleButton } from '.src/components';
 import { Timer, vibrate } from './utils';
 
 const DEFAULT_WORK_MINS = 25;
