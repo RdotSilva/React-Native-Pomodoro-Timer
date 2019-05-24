@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
 	progress: {
@@ -8,4 +9,13 @@ const styles = StyleSheet.create({
 		width: 100
 	}
 });
-export default props => <View style={styles.progress} />;
+
+const ProgressBar = props => <View style={styles.progress} />;
+
+ProgressBar.propTypes = {
+	timeRemaining: PropTypes.number,
+	timeTotal: PropTypes.number,
+	isRunning: PropTypes.bool
+};
+
+export default ProgressBar;
