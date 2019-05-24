@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-import { Countdown, TimeInput, TimerToggleButton } from '.src/components';
+import { Countdown, TimeInput, TimerToggleButton } from './src/components';
 import { Timer, vibrate } from './utils';
 
-const DEFAULT_WORK_MINS = 25;
-const DEFAULT_BREAK_MINS = 5;
+const DEFAULT_WORK_MINS = 0.1;
+const DEFAULT_BREAK_MINS = 0.1;
 
 const minToSec = mins => mins * 60;
 const nextTimer = { work: 'break', break: 'work' };
