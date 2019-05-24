@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 const styles = StyleSheet.create({
 	progress: {
 		backgroundColor: 'blue',
-		height: 100,
-		width: 100
+		height: 10
 	}
 });
 
 const ProgressBar = props => {
 	const { width } = Dimensions.get('window');
-	return <View style={[styles.progress, { width: width }]} />;
+	const percent = 1 - props.timeRemaining / props.timeTotal;
+	return <View style={[styles.progress, { width: percent * width }]} />;
 };
 
 ProgressBar.propTypes = {
