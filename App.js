@@ -1,178 +1,139 @@
 import React from 'react';
-import { StyleSheet, Text, View, Vibration } from 'react-native';
-import Timer from './src/components/Timer';
-import Buttons from './src/components/Buttons';
-import Label from './src/components/Label';
-import Menu from './src/components/Menu';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-const style = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center'
-	},
-	menuContainer: {
-		flexDirection: 'row',
-		alignItems: 'center'
-	}
-});
+import { Countdown, TimeInput, TimerToggleButton } from './components';
+import { Timer, vibrate } from './utils';
 
-vibrate = () => Vibration.vibrate([500, 500, 500]);
+const DEFAULT_WORK_MINS = 25;
+const DEFAULT_BREAK_MINS = 5;
 
-formatTime = time => {
-	if (parseInt(time) < 10) {
-		return '0' + time.toString();
-	} else {
-		return time.toString();
-	}
-};
+const minToSec = mins => mins * 60;
+const nextTimer = { work: 'break', break: 'work' };
 
-getTime = val => {
-	return formatTime(val) + ':00';
-};
+export default class App extends React.Component {
+	state = {
+		// in seconds
+		workTime: minToSec(DEFAULT_WORK_MINS),
+		breakTime: minToSec(DEFAULT_BREAK_MINS),
+		// in ms
+		timeRemaining: minToSec(DEFAULT_WORK_MINS) * 1000,
+		isRunning: false,
+		activeTimer: 'work'
+	};
 
-class App extends React.Component {
-	constructor(props) {
-		super(props),
-			(this.state = {
-				currentTime: '25:00',
-				workTime: '25:00',
-				breakTime: '05:00',
-				working: true,
-				timer: null,
-				paused: false,
-				playing: false
-			});
+	componentDidMount() {
+		this.timer = new Timer(
+			this.state.timeRemaining,
+			this.updateTimeRemaining,
+			this.handleTimerEnd
+		);
+		this.setState({ isRunning: this.timer.isRunning });
 	}
 
-	setWorkTimer = val => {
-		let newTime = getTime(val);
-		this.setState({
-			workTime: newTime
-		});
-		if (!this.state.timer) {
+	componentWillUnmount() {
+		if (this.timer) this.timer.stop();
+	}
+
+	updateTime = target => (time, shouldStartTimer) => {
+		if (this.state.activeTimer === target) {
+			if (this.timer) this.timer.stop();
+			const timeRemaining = +time * 1000;
+			this.timer = new Timer(
+				timeRemaining,
+				this.updateTimeRemaining,
+				this.handleTimerEnd
+			);
+			if (!shouldStartTimer) this.timer.stop();
 			this.setState({
-				currentTime: newTime
-			});
-		}
-	};
-
-	setBreakTimer = val => {
-		let newTime = getTime(val);
-		this.setState({
-			breakTime: newTime
-		});
-	};
-
-	playButton = () => {
-		if (this.state.paused === true || this.state.playing === false) {
-			this.setState({
-				timer: setInterval(this.countdown, 1000),
-				paused: false,
-				playing: true
-			});
-		}
-	};
-
-	pauseButton = () => {
-		if (this.state.paused === false && this.state.playing === true) {
-			clearInterval(this.state.timer);
-			this.setState({
-				paused: true,
-				timer: null,
-				playing: false
-			});
-			console.log(this.state.paused);
-		} else if (this.state.paused === true && this.state.playing === false) {
-			this.playButton();
-		}
-	};
-
-	resetButton = () => {
-		this.pauseButton();
-		this.setState({
-			currentTime: this.state.workTime,
-			playing: false,
-			paused: false,
-			working: true,
-			timer: null
-		});
-	};
-
-	countdown = () => {
-		if (this.state.currentTime === '00:00' && this.state.playing === true) {
-			console.log('finished');
-			vibrate();
-			this.toggleStatus();
-		} else {
-			let sec = this.state.currentTime.slice(3);
-			let min = this.state.currentTime.slice(0, 2);
-			if (sec === '00') {
-				let newMin = formatTime(parseInt(min) - 1);
-				let newTime = newMin + ':59';
-				this.setState({
-					currentTime: newTime
-				});
-			} else {
-				let newSec = formatTime(parseInt(sec) - 1);
-				let newTime = min + ':' + newSec;
-				this.setState({
-					currentTime: newTime
-				});
-			}
-		}
-	};
-
-	toggleStatus = () => {
-		if (this.state.working) {
-			this.setState({
-				working: false,
-				currentTime: this.state.breakTime
+				[`${target}Time`]: time,
+				timeRemaining,
+				isRunning: this.timer.isRunning
 			});
 		} else {
 			this.setState({
-				working: true,
-				currentTime: this.state.workTime
+				[`${target}Time`]: time,
+				isRunning: this.timer.isRunning
 			});
 		}
+	};
+
+	// hack: if an event is passed (ie is button press), stop timer
+	resetTimer = shouldStopTimer => {
+		const { activeTimer } = this.state;
+		this.updateTime(activeTimer)(
+			this.state[`${activeTimer}Time`],
+			!shouldStopTimer
+		);
+	};
+
+	updateTimeRemaining = timeRemaining => {
+		this.setState({ timeRemaining });
+	};
+
+	toggleTimer = () => {
+		if (!this.timer) return;
+		if (this.timer.isRunning) this.timer.stop();
+		else this.timer.start();
+
+		this.setState({ isRunning: this.timer.isRunning });
+	};
+
+	handleTimerEnd = () => {
+		vibrate();
+		this.setState(
+			prevState => ({ activeTimer: nextTimer[prevState.activeTimer] }),
+			this.resetTimer
+		);
 	};
 
 	render() {
 		return (
-			<View style={style.container}>
-				<Timer currentTime={this.state.currentTime} />
-				<Label
-					working={this.state.working}
-					paused={this.state.paused}
-					playing={this.state.playing}
+			<View style={styles.container}>
+				<Text style={[styles.title, styles.center]}>
+					{this.state.activeTimer.toUpperCase()} TIMER
+				</Text>
+				<Countdown
+					style={styles.center}
+					timeRemaining={this.state.timeRemaining}
+					onToggleTimer={this.toggleTimer}
 				/>
-				<View style={{ flexDirection: 'row' }}>
-					<Buttons title="Play" onPress={this.playButton} />
-					<Buttons title="Pause" onPress={this.pauseButton} />
-					<Buttons title="Reset" onPress={this.resetButton} />
-				</View>
-				<View style={style.menuContainer}>
-					<Text>Select work time (min): </Text>
-					<Menu
-						selected={Number(
-							this.state.workTime.slice(0, 2)
-						).toString()}
-						onValueChange={this.setWorkTimer}
+				<View style={[styles.buttonGroup, styles.center]}>
+					<TimerToggleButton
+						onToggle={this.toggleTimer}
+						isRunning={this.state.isRunning}
 					/>
+					<Button title="Reset" onPress={this.resetTimer} />
 				</View>
-				<View style={style.menuContainer}>
-					<Text>Select break time (min): </Text>
-					<Menu
-						selected={Number(
-							this.state.breakTime.slice(0, 2)
-						).toString()}
-						onValueChange={this.setBreakTimer}
-					/>
-				</View>
+				<TimeInput
+					title="WORK TIME:"
+					onChange={this.updateTime('work')}
+					value={this.state.workTime}
+				/>
+				<TimeInput
+					title="BREAK TIME:"
+					onChange={this.updateTime('break')}
+					value={this.state.breakTime}
+				/>
 			</View>
 		);
 	}
 }
 
-export default App;
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingTop: 150,
+		backgroundColor: '#fff',
+		alignItems: 'stretch'
+	},
+	center: {
+		alignSelf: 'center'
+	},
+	buttonGroup: {
+		flexDirection: 'row'
+	},
+	title: {
+		fontWeight: 'bold',
+		fontSize: 48
+	}
+});
