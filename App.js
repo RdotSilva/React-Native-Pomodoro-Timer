@@ -96,7 +96,13 @@ export default class App extends React.Component {
 		);
 	};
 
+	block() {
+		const doneTime = Date.now() + 200;
+		while (Date.now() < doneTime) {}
+	}
+
 	render() {
+		if (Math.round(Math.random())) this.block();
 		return (
 			<View style={styles.container}>
 				<Text style={[styles.title, styles.center]}>
